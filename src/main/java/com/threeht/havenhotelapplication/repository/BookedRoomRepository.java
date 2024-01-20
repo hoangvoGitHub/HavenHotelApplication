@@ -1,4 +1,7 @@
 package com.threeht.havenhotelapplication.repository;
 
-public interface BookedRoomRepository {
+import com.threeht.havenhotelapplication.model.BookedRoom;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BookedRoomRepository extends JpaRepository<BookedRoom, Long> {
 }
