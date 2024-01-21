@@ -1,4 +1,4 @@
 package com.threeht.havenhotelapplication.service;
 
-public class BookedRoomServiceImpl {
+public interface IBookedService {
 }
