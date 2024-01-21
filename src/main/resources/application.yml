@@ -4,15 +4,38 @@ server:
 spring:
   datasource:
     username: root
-    password: admin
-    url: jdbc:mysql://localhost:3306/heaven_hotel_db
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost:3306/haven-hotel
   jpa:
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
-  servlet:
-    multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
-      file-size-threshold: 2KB
+#  servlet:
+#    multipart:
+#    max-file-size: 5MB
+#    max-request-size: 5MB
+#    file-size-threshold: 2KB
+#
+#    security:
+#      jwt:
+#        secret-key: 36763979244226452948404D635166546A576D5A7134743777217A25432A462D
+#        expire-length: 3600000
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
