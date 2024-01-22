@@ -1,4 +1,4 @@
-package com.threeht.havenhotelapplication.auth.config;
+package com.threeht.havenhotelapplication.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

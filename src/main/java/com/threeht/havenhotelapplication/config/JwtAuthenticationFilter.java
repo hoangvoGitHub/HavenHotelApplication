@@ -1,4 +1,4 @@
-package com.threeht.havenhotelapplication.auth.config;
+package com.threeht.havenhotelapplication.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

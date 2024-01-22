@@ -1,6 +1,6 @@
-package com.threeht.havenhotelapplication.auth.config;
+package com.threeht.havenhotelapplication.config;
 
-import com.threeht.havenhotelapplication.auth.data.UserRepository;
+import com.threeht.havenhotelapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

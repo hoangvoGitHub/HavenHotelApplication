@@ -1,9 +1,11 @@
-package com.threeht.havenhotelapplication.auth.api;
+package com.threeht.havenhotelapplication.controller;
 
+import com.threeht.havenhotelapplication.request.AuthenticationRequest;
+import com.threeht.havenhotelapplication.response.AuthenticationResponse;
+import com.threeht.havenhotelapplication.service.AuthenticationService;
+import com.threeht.havenhotelapplication.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

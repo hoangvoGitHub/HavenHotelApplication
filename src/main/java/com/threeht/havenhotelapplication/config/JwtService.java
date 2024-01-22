@@ -1,4 +1,4 @@
-package com.threeht.havenhotelapplication.auth.config;
+package com.threeht.havenhotelapplication.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static com.threeht.havenhotelapplication.auth.config.SecurityConfig.EXPIRATION_TIME;
+import static com.threeht.havenhotelapplication.config.SecurityConfig.EXPIRATION_TIME;
 
 
 @Service

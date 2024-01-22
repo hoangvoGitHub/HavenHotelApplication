@@ -1,7 +1,7 @@
-package com.threeht.havenhotelapplication.auth.data;
+package com.threeht.havenhotelapplication.repository;
 
 
-import com.threeht.havenhotelapplication.auth.data.model.User;
+import com.threeht.havenhotelapplication.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

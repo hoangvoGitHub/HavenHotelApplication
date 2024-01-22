@@ -1,11 +1,14 @@
-package com.threeht.havenhotelapplication.auth.api;
+package com.threeht.havenhotelapplication.service;
 
 
 
-import com.threeht.havenhotelapplication.auth.config.JwtService;
-import com.threeht.havenhotelapplication.auth.data.UserRepository;
-import com.threeht.havenhotelapplication.auth.data.model.Role;
-import com.threeht.havenhotelapplication.auth.data.model.User;
+import com.threeht.havenhotelapplication.request.RegisterRequest;
+import com.threeht.havenhotelapplication.config.JwtService;
+import com.threeht.havenhotelapplication.repository.UserRepository;
+import com.threeht.havenhotelapplication.model.Role;
+import com.threeht.havenhotelapplication.model.User;
+import com.threeht.havenhotelapplication.request.AuthenticationRequest;
+import com.threeht.havenhotelapplication.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

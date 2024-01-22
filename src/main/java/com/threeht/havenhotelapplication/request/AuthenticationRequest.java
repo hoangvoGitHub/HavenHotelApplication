@@ -1,4 +1,4 @@
-package com.threeht.havenhotelapplication.auth.api;
+package com.threeht.havenhotelapplication.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
