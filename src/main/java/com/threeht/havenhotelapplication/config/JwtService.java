@@ -35,7 +35,6 @@ public class JwtService {
     }
 
     // Extract all claims from the token
-    // Extract all claims from the token
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()

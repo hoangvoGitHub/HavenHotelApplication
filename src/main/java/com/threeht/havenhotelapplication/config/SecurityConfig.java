@@ -30,9 +30,9 @@ public class SecurityConfig {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable) // Disable csrf, which will not prevent unauthorized requests
                 .authorizeHttpRequests(auth -> auth //Configures the authorization rules for incoming HTTP requests
-                        .requestMatchers("/api/v1/auth/**")
-                        .permitAll() //Request that match the matchers will be permitted without requiring authentication.
-                        .anyRequest().authenticated() // Other requests that does not match should be authenticated
+//                        .requestMatchers("/api/v1/auth/**").permitAll() //Request that match the matchers will be permitted without requiring authentication.
+                        .anyRequest().permitAll()
+//                                .authenticated() // Other requests that does not match should be authenticated
                 )
 //                .exceptionHandling()
                 .sessionManagement(sessionConfigure -> sessionConfigure
