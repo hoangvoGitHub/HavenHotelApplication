@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "_user")
+@Table(name = "user")
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
@@ -40,6 +41,9 @@ public class User implements UserDetails {
 
     @Nonnull
     private String lastName;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookedRoom> bookings;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Nonnull

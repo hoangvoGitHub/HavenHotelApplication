@@ -1,12 +1,16 @@
 package com.threeht.havenhotelapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -18,10 +22,10 @@ public class BookedRoom {
     private Long id;
 
     @Column(name = "check_In")
-    private LocalDate checkInDate;
+    private Date checkInDate;
 
     @Column(name = "check_Out")
-    private LocalDate checkOutDate;
+    private Date checkOutDate;
 
     @Column(name = "guest_FullName")
     private String guestFullName;
@@ -45,6 +49,23 @@ public class BookedRoom {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Nonnull
+    private Date createdAt = new Date();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Nullable
+    private Date updatedAt;
+
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @Nullable
+    private Date deletedAt;
 
     public void calculateTotalNumberOfGuest() {
         this.totalNumberOfGuest = this.NumberOfAdults + this.NumberOfChildren;
