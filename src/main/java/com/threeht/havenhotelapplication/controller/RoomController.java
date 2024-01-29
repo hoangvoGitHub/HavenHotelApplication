@@ -1,4 +1,5 @@
 package com.threeht.havenhotelapplication.controller;
+
 import com.threeht.havenhotelapplication.exception.PhotoRetrievalException;
 import com.threeht.havenhotelapplication.exception.ResourceNotFoundException;
 import com.threeht.havenhotelapplication.model.BookedRoom;
@@ -29,6 +30,7 @@ import java.util.Optional;
 public class RoomController {
     private final IRoomService roomService;
     private final BookingSerivce bookingSerivce;
+
     @PostMapping("/add/new-room")
     public ResponseEntity<RoomResponse> addNewRoom(
             @RequestParam("photo") MultipartFile photo,
@@ -36,7 +38,7 @@ public class RoomController {
             @RequestParam("roomPrice") BigDecimal roomPrice) throws SQLException, IOException {
         Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);
         RoomResponse response = new RoomResponse(savedRoom.getId(), savedRoom.getRoomType(), savedRoom.getRoomPrice());
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/room/types")
@@ -47,26 +49,30 @@ public class RoomController {
     @GetMapping("/all-rooms")
     public ResponseEntity<List<RoomResponse>> getAllRooms() throws SQLException {
         List<Room> rooms = roomService.getAllRooms();
+        System.out.println("HoangVo:" + rooms);
         List<RoomResponse> roomResponses = new ArrayList<>();
         for (Room room : rooms) {
             byte[] photoBytes = roomService.getRoomPhotoByRoomId(room.getId());
+            String base64Photo = null;
             if (photoBytes != null && photoBytes.length > 0) {
-                String base64Photo = Base64.encodeBase64String(photoBytes);
-                RoomResponse roomResponse = getRoomResponse(room);
-                roomResponse.setPhoto(base64Photo);
-                roomResponses.add(roomResponse);
+                base64Photo = Base64.encodeBase64String(photoBytes);
             }
+            RoomResponse roomResponse = getRoomResponse(room);
+            roomResponse.setPhoto(base64Photo);
+            roomResponses.add(roomResponse);
         }
         return ResponseEntity.ok(roomResponses);
     }
+
     @GetMapping("/room/{roomId}")
     public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId) {
         Optional<Room> theRoom = roomService.getRoomById(roomId);
         return theRoom.map(room -> {
             RoomResponse roomResponse = getRoomResponse(room);
             return ResponseEntity.ok(Optional.of(roomResponse));
-        }).orElseThrow(()-> new ResourceNotFoundException("Room not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
     }
+
     @PutMapping("/update/{roomId}")
     public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long roomId,
                                                    @RequestParam(required = false) String roomType,
@@ -82,11 +88,13 @@ public class RoomController {
         RoomResponse roomResponse = getRoomResponse(theRoom);
         return ResponseEntity.ok(roomResponse);
     }
+
     @DeleteMapping("/delete/room/{roomId}")
     public ResponseEntity<Void> deleteRoom(@PathVariable("roomId") Long roomId) {
         roomService.deleteRoomById(roomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     private RoomResponse getRoomResponse(Room room) {
         List<BookedRoom> bookings = getAllBookingsByRoomId(room.getId());
 /*

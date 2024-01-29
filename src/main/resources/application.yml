@@ -10,6 +10,15 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+#  graphql:
+#    cors:
+#      allowed-origins: "http://localhost:8080/rooms/all-rooms"
+#      allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+#      max-age: 3600
+#      allowed-headers: "Requestor-Type"
+#      exposed-headers: "X-Get-Header"
+
 #  servlet:
 #    multipart:
 #    max-file-size: 5MB
