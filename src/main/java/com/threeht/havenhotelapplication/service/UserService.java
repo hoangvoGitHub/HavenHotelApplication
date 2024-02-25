@@ -3,10 +3,7 @@ package com.threeht.havenhotelapplication.service;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.threeht.havenhotelapplication.exception.UserAlreadyExistsException;
 import com.threeht.havenhotelapplication.model.User;
 import com.threeht.havenhotelapplication.repository.UserRepository;
 

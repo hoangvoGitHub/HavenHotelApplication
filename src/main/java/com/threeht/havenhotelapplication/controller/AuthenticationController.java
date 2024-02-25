@@ -2,7 +2,7 @@ package com.threeht.havenhotelapplication.controller;
 
 import com.threeht.havenhotelapplication.exception.UserAlreadyExistsException;
 import com.threeht.havenhotelapplication.request.AuthenticationRequest;
-import com.threeht.havenhotelapplication.response.AuthenticationResponse;
+import com.threeht.havenhotelapplication.response.JwtResponse;
 import com.threeht.havenhotelapplication.service.AuthenticationService;
 import com.threeht.havenhotelapplication.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +29,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    public ResponseEntity<JwtResponse> authenticate(
             @RequestBody AuthenticationRequest request) {
-        AuthenticationResponse response = service.authenticate(request);
-        return ResponseEntity.status(response.getStatus()).body(response);
+        JwtResponse response = service.authenticate(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
