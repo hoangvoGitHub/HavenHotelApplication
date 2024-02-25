@@ -13,12 +13,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RoomServiceImpl implements  IRoomService{
+public class RoomService implements  IRoomService{
     private final RoomRepository roomRepository;
     @Override
     public Room addNewRoom(MultipartFile file, String roomType, BigDecimal roomPrice) throws IOException, SQLException {
@@ -81,5 +82,10 @@ public class RoomServiceImpl implements  IRoomService{
         if (theRoom.isPresent()) {
             roomRepository.deleteById(roomId);
         }
+    }
+
+    @Override
+    public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
+        return roomRepository.findAvailableRoomsByDatesAndType(checkInDate, checkOutDate, roomType);
     }
 }

@@ -17,15 +17,23 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
 
+    @Column
     private String roomType;
+
+    @Column
     private BigDecimal roomPrice;
-    private Boolean isBooked = false;
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BookedRoom> bookings;
+
+    @Column
+    private boolean isBooked = false;
+
     @Lob
     private Blob photo;
+
+    @OneToMany(mappedBy="room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookedRoom> bookings;
+
     public Room() {
         this.bookings = new ArrayList<>();
     }

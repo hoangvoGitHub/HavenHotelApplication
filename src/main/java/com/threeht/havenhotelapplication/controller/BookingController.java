@@ -1,0 +1,95 @@
+package com.threeht.havenhotelapplication.controller;
+
+import com.threeht.havenhotelapplication.exception.InvalidBookingRequestException;
+import com.threeht.havenhotelapplication.exception.ResourceNotFoundException;
+import com.threeht.havenhotelapplication.model.BookedRoom;
+import com.threeht.havenhotelapplication.model.Room;
+import com.threeht.havenhotelapplication.response.BookingResponse;
+import com.threeht.havenhotelapplication.response.RoomResponse;
+import com.threeht.havenhotelapplication.service.IBookingService;
+import com.threeht.havenhotelapplication.service.IRoomService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/bookings")
+public class BookingController {
+    private final IBookingService bookingService;
+    private final IRoomService roomService;
+
+    @GetMapping("/all-bookings")
+    public ResponseEntity<List<BookingResponse>> getAllBookings() {
+        List<BookedRoom> bookings = bookingService.getAllBookings();
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (BookedRoom booking : bookings) {
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            bookingResponses.add(bookingResponse);
+        }
+        return ResponseEntity.ok(bookingResponses);
+    }
+
+    @PostMapping("/room/{roomId}/booking")
+    public ResponseEntity<?> saveBooking(@PathVariable Long roomId,
+            @RequestBody BookedRoom bookingRequest) {
+        try {
+            String confirmationCode = bookingService.saveBooking(roomId, bookingRequest);
+            return ResponseEntity.ok(
+                    "Room booked successfully, your booking confirmation code is: " + confirmationCode);
+        } catch (InvalidBookingRequestException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/confirmation/{confirmationCode}")
+    public ResponseEntity<?> getBookingByConfirmationCode(@PathVariable String confirmationCode) {
+        try {
+            BookedRoom booked = bookingService.findBookingByConfirmationCode(confirmationCode);
+            BookingResponse bookingResponse = getBookingResponse(booked);
+            return ResponseEntity.ok(bookingResponse);
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    @GetMapping("/user/{email}/bookings")
+    public ResponseEntity<List<BookingResponse>> getBookingsByUserEmail(@PathVariable String email) {
+        List<BookedRoom> bookings = bookingService.getBookingsByUserEmail(email);
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (BookedRoom booking : bookings) {
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            bookingResponses.add(bookingResponse);
+        }
+        return ResponseEntity.ok(bookingResponses);
+    }
+    
+    @DeleteMapping("/booking/{bookingId}/delete")
+    public void cancleBooking(@PathVariable Long bookingId) {
+        bookingService.cancleBooking(bookingId);
+    }
+
+    private BookingResponse getBookingResponse(BookedRoom booking) {
+        Room theRoom = roomService.getRoomById(booking.getRoom().getId()).get();
+        RoomResponse room = new RoomResponse(
+                theRoom.getId(),
+                theRoom.getRoomType(),
+                theRoom.getRoomPrice());
+
+        return new BookingResponse(
+                booking.getBookingId(),
+                booking.getCheckInDate(),
+                booking.getCheckOutDate(),
+                booking.getGuestFullName(),
+                booking.getGuestEmail(),
+                booking.getNumberOfAdults(),
+                booking.getNumberOfChildren(),
+                booking.getTotalNumberOfGuest(),
+                booking.getBookingConfirmationCode(),
+                room);
+    }
+}
