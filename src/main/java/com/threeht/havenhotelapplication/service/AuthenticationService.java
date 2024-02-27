@@ -39,11 +39,11 @@ public class AuthenticationService {
                                 .firstName(request.getFirstName())
                                 .lastName(request.getLastName())
                                 .email(request.getEmail())
-                                .roles(List.of(Role.USER))
+                                .roles(List.of(request.getRole()))
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .build();
 
-                return user;
+                return userRepository.save(user);
         }
 
         public JwtResponse authenticate(AuthenticationRequest request) {

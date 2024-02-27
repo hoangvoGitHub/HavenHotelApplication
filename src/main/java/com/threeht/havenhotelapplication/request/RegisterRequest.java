@@ -1,5 +1,6 @@
 package com.threeht.havenhotelapplication.request;
 
+import com.threeht.havenhotelapplication.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,7 @@ public class RegisterRequest   {
     private String firstName;
 
     private String lastName;
+
+    private Role role;
 
 }
