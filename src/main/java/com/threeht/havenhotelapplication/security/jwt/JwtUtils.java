@@ -19,11 +19,11 @@ import java.util.List;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${auth.token.jwtSecret}")
-    private String jwtSecret;
+//    @Value("${auth.token.jwtSecret}")
+    private String jwtSecret  = "36763979244226452948404D635166546A576D5A7134743777217A25432A462D";
 
-    @Value("${auth.token.expirationInMils}")
-    private int jwtExpirationMs;
+//    @Value("${auth.token.expirationInMils}")
+    private int jwtExpirationMs = 3600000;
 
     public String generateJwtTokenForUser(Authentication authentication){
         HotelUserDetails userPrincipal = (HotelUserDetails) authentication.getPrincipal();
