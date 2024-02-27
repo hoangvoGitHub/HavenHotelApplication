@@ -13,31 +13,33 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-    networks:
-      - spring-cloud-network
-  app:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
-    image: haven-backend
-    container_name: haven-backend
-    hostname: haven-backend
-    ports:
-      - "9192:9192"
-    depends_on:
-      - db
-    networks:
-      - spring-cloud-network
-    environment:
-      - SPRING_SERVER_PORT=9192
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/haven-hotel  # Use the service name "db" as the hostname
-      - SPRING_JPA_SHOW_SQL=true
-      - SPRING_HIBERNATE_DDL_AUTO=update
-
 volumes:
   mysql-data:
-networks:
-  spring-cloud-network:
-    driver: bridge
+#    networks:
+#      - spring-cloud-network
+#  app:
+#    build:
+#      context: ./
+#      dockerfile: ./Dockerfile
+#    image: haven-backend
+#    container_name: haven-backend
+#    hostname: haven-backend
+#    ports:
+#      - "9192:9192"
+#    depends_on:
+#      - db
+#    networks:
+#      - spring-cloud-network
+#    environment:
+#      - SPRING_SERVER_PORT=9192
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=root
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/haven-hotel  # Use the service name "db" as the hostname
+#      - SPRING_JPA_SHOW_SQL=true
+#      - SPRING_HIBERNATE_DDL_AUTO=update
+#
+#volumes:
+#  mysql-data:
+#networks:
+#  spring-cloud-network:
+#    driver: bridge
