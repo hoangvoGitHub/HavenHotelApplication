@@ -12,6 +12,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,7 @@ public class RoomController {
     private final BookingSerivce bookingSerivce;
     
     @PostMapping("/add/new-room")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<RoomResponse> addNewRoom(
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("roomType") String roomType,
@@ -97,6 +99,7 @@ public class RoomController {
     }
 
     @PutMapping("/update/{roomId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long roomId,
                                                    @RequestParam(required = false) String roomType,
                                                    @RequestParam(required = false) BigDecimal roomPrice,
@@ -113,6 +116,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/delete/room/{roomId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteRoom(@PathVariable("roomId") Long roomId) {
         roomService.deleteRoomById(roomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
