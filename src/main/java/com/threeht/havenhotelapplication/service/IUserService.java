@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getUsers();
-    void deleteUser(String email);
-    User getUser(String email);
+    void deleteUser(Long userId);
+    User getUserByEmail(String email);
+    User getUserById(Long userId);
 }

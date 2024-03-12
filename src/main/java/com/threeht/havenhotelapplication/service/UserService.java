@@ -22,18 +22,23 @@ public class UserService implements IUserService {
 
     @Transactional
     @Override
-    public void deleteUser(String email) {
-        User theUser = getUser(email);
+    public void deleteUser(Long userId) {
+        User theUser = getUserById(userId);
         if (theUser != null){
-            userRepository.deleteByEmail(email);
+            userRepository.deleteById(userId);
         }
 
     }
 
     @Override
-    public User getUser(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
-    
+
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 }

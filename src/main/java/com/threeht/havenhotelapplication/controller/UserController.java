@@ -27,7 +27,7 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable("email") String email){
         try{
-            User theUser = userService.getUser(email);
+            User theUser = userService.getUserByEmail(email);
             return ResponseEntity.ok(theUser);
         }catch (UsernameNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -37,9 +37,9 @@ public class UserController {
     }
     @DeleteMapping("/delete/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> deleteUser(@PathVariable("userId") String email){
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId){
         try{
-            userService.deleteUser(email);
+            userService.deleteUser(userId);
             return ResponseEntity.ok("User deleted successfully");
         }catch (UsernameNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
